@@ -1,0 +1,11 @@
+type Query {
+
+files: [Files]
+
+}
+
+type files{
+
+  id: ID!
+  bbbbb: ?
+}

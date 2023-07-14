@@ -1,0 +1,8 @@
+
+1- to make docker for database up 
+sudo docker start postgres_con
+2-the exact host ip address for out server database
+sudo docker inspect postgres_con
+3- to make docker for the application springboot up 
+sudo docker start assessments_con
+

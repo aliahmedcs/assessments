@@ -1,0 +1,75 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class ReverserOfSubString {
+
+	
+	public static void main(String[] args) {
+		ReverserOfSubString obj=new ReverserOfSubString();
+		obj.reverseStringBetweenTwoParentheses("dd(df)a(ghhh)");
+		//"dd(df)a(ghhh)"));//"(d(df)a(hh)h)"
+		obj.reverseStringBetweenTwoParentheses("abd(jnb)asdf");
+		obj.reverseStringBetweenTwoParentheses("abdjnbasdf");
+	}
+
+	public String  reverseStringBetweenTwoParentheses(String s) {
+		int numberOfStringsWithParenthses=0;
+		boolean leftParenthsesDetected=false;
+		boolean rightParenthsesDetected=false;
+		//String reversedString="";
+		
+		if(s.length()<1 ||s.length()>2000) {
+			System.out.println("Length of tthe entered string should be more than one and less than 2000");
+		}else if(!s.matches("^[A-Z]*[a-z\\(\\)][a-z].*$")) {
+			System.out.println("The string components should be lowercase letters with parenthses only");
+			return "";
+		}
+		int countLeftParenthses=(int)s.chars().filter(c->c=='(').count();
+		int countRightParenthses=(int)s.chars().filter(c->c==')').count();
+		if(countLeftParenthses!=countRightParenthses) {
+			System.out.println("String not balanced witth parenthses");
+		}
+	String[] theStringsBetweenBarenthses=new String[countRightParenthses];
+		String store=" ";
+		for(char c:s.toCharArray()) {
+			if(c=='(') {
+				leftParenthsesDetected=true;
+				numberOfStringsWithParenthses++;
+				store="";
+				continue;
+			}else if(c==')') {
+				rightParenthsesDetected=true;
+				leftParenthsesDetected=false;
+				continue;
+			}
+			if(leftParenthsesDetected==true) {
+				store=store+c;
+				theStringsBetweenBarenthses[numberOfStringsWithParenthses-1]=store;
+			}
+			
+			
+		}
+		//System.out.println(theStringsBetweenBarenthses[0]+"    "+countRightParenthses+theStringsBetweenBarenthses[1]);
+		for (String str : theStringsBetweenBarenthses) {
+	        StringBuilder input1 = new StringBuilder();
+	        
+	        // append a string into StringBuilder input1
+	        input1.append(str).reverse();
+	 
+	        // reverse StringBuilder input1
+	        
+			if(s.contains("("+str+")")) {
+			    System.out.println(input1);
+				s=s.replace("("+str+")", "("+input1+")");
+			
+			}
+		}
+		 
+		
+		
+		System.out.println(s);
+		return s;
+	}
+		
+	
+}

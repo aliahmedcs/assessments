@@ -1,0 +1,15 @@
+-- query two join the two tables and select repeated users training_ids's 
+-- and group by them training_id , user-id and training_date
+select u.user_id,u.username,training_id ,training_date,count(training_id)
+from Training_details,user u
+where Training_details.user_id=u.user_id and 
+-- get the repeated dates grouped by training_date
+training_date in (
+    select training_date
+    from Training_details
+    group by training_date
+    having count(training_date)>1)
+-- end of query one
+group by training_id ,training_date,u.user_id
+having count(training_id)>1
+order by Training_details.training_date DESC;
